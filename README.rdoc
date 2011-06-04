@@ -1,0 +1,119 @@
+= middleman-blog
+
+Create a blog with Middleman
+
+== Features
+
+- header with metadata (yaml) for your post templates (https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter)
+- helper methods to access the metadata from every template/layout file
+- template languages: markdown, textile, rdoc
+
+== TODO
+
+- test suite
+- better documentation
+- installer/generator
+- more helpers
+- more build-in features (releated posts, tags etc.)
+
+== Usage
+
+1. Install
+
+    gem install middleman-blog
+    
+   Additionally you need one of the following gems for your post templates: Kramdown, Maruku, RedCloth, BlueCloth, RDiscount ...
+
+2. Create your project
+
+    mm-init your-middleman-project
+
+3. Create config/blogs.yml with default values 
+
+    blog:
+      title: My Blog
+      author: your name
+      mail: your mail
+      whatever: a value
+    another-blog:
+      title: My second Blog
+
+   Yes, you can define default values for more than one blog...
+
+4. Create layout files:
+
+   blog_index.haml:
+
+    %h1= current_blog_value('title')
+    = yield
+
+   blog_post.haml:
+
+    %h1= current_post_value('title')
+    = yield
+
+5. Activate feature in config.rb
+
+    require "middleman-blog"
+    activate :blog_engine
+    
+    page "/blog/index.html", :layout => :blog_index, :layout_engine => 'haml'
+    page "/blog/*", :layout => :blog_post, :layout_engine => 'haml'
+    
+    page "/another-blog/index.html", :blog_post => :blog_index, :layout_engine => 'haml'
+    page "/another-blog/*", :blog_post => :blog_post, :layout_engine => 'haml'
+
+6. Create directories in your source folder
+
+    mkdir blog
+    mkdir my-second-blog
+
+   In these folders you can create your posts.
+
+   blog/my-first-post.html.md
+
+    title: Title of my first post
+    date: 2011-06-05
+    ----
+    
+    
+    My first blog post...
+
+== Metadata
+
+- "----\n\n\n" separates the metadata from your post data.
+- metadata supports ERB
+- you can define whatever you want
+- special keys for blogs.yml: 
+  sort_by: name of another key (default is date)
+  sort_direction: normal | reverse (default is reverse)
+- special keys for yaml header: 
+  date: default is mtime for template file
+
+== Helper methods
+
+- current_blog
+- current_blog_meta(key) or current_blog[key]
+- current_post
+- current_post_meta(key) or current_post[key]
+- next_post
+- prev_post
+- current_blog_ident
+- current_post_ident
+- current_post_index
+
+=== Examples
+
+- Link to the next post
+
+    link_to next_post['title'], next_post['link']
+
+- List of 10 last posts
+
+    %ul
+      - current_blog["posts"][0,10].each do |post|
+        %li= link_to post['title'], post['link']
+
+== Links
+
+* https://github.com/tdreyno/middleman
