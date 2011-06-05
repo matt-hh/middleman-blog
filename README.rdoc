@@ -4,7 +4,7 @@ Create a blog with Middleman
 
 == Features
 
-- header with metadata (yaml) for your post templates (similar to https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter)
+- metadata (yaml) for your post templates (similar to https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter)
 - helper methods to access the metadata from every template/layout file
 - template languages: markdown, textile, rdoc
 
@@ -17,6 +17,8 @@ Create a blog with Middleman
 - more build-in features (releated posts, tags etc.)
 
 == Usage
+
+Example: https://github.com/matt-hh/middleman-blog-example
 
 1. Install
 
