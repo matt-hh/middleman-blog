@@ -75,10 +75,11 @@ Create a blog with Middleman
     title: Title of my first post
     date: 2011-06-05
     ----
-      
     
     
     My first blog post...
+
+   Important: 2 newlines between "----" and "My first..."
 
 == Metadata
 
